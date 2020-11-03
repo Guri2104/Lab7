@@ -10,22 +10,50 @@ Course::Course (const Course & m) : title (m.title), day (m.day), start_time (m.
 }
 
 Course & Course::operator =(Course m) {
-    //TODO implement the operator
+    mySwap(*this, m);
     return *this;
 }
 bool Course::operator == (const Course & m) const {
-    //TODO implement the operator
-    return false;
+    if (title != m.title || day != m.day ||
+        start_time != m.start_time || finish_time != m.finish_time){
+        return false;
+    }
+    return true;
 }
 
 bool Course::operator < (const Course & m) const
 {
-    //TODO implement the operator
+    if (day < m.day)
+        return true;
+    if (day > m.day)
+        return false;
+    if (start_time < m.start_time)
+        return true;
+    if (start_time > m.start_time)
+        return false;
+    if (finish_time <= m.finish_time)
+        return true;
     return false;
+}
+
+void Course::mySwap(Course &course1, Course &course2) {
+    swap(course1.title, course2.title);
+    swap(course1.day, course2.day);
+    swap(course1.start_time, course2.start_time);
+    swap(course1.finish_time, course2.finish_time);
 }
 
 ostream & operator << (ostream &os, const Course & m)
 {
-    //TODO implement the operator
+    os << m.title << " " << m.day << " " << m.start_time << " " << m.finish_time << endl;
     return os;
+}
+
+bool Course::conflict(Course& m) const
+{
+    if (day != m.day)
+        return false;
+    if (start_time > m.finish_time || finish_time < m.start_time)
+        return false;
+    return true;
 }

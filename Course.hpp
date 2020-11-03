@@ -16,6 +16,8 @@ string title; // Name of Course
 dayOfWeek day; // Day of Course
 unsigned int start_time; // Course start time in HHMM format
 unsigned int finish_time; // Course finish time in HHMM format
+void mySwap(Course &course1, Course &course2);
+bool conflict(Course &m) const;
 };
 
 // Helper operator for output
