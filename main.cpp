@@ -16,13 +16,29 @@ using namespace std;
  * print schedule - outputs course schedule to the screen
  * @param - add any new parameters you need
  */
-void printSchedule()
+void printSchedule(multiset<Course> courseSet)
 {
-    //TODO implement your print using the copy algorithm, 2 iterators, and an ostream_iterator
+    multiset<Course>::iterator it1;
+    multiset<Course>::iterator it2;
+    int it_tracker;
+    for(it1 = courseSet.begin(); it1 != courseSet.end(); it1++){
+        it2 = it1;
+        it2++;
+        for (; it2 != courseSet.end(); it2++) {
+            if (it1->conflict(const_cast<Course &>(*it2))) {
+                cout << "CONFLICT:" << endl;
+                cout << *it1;
+                cout << *it2 << endl;
+            }
+        }
+    }
+
+    for(it1 = courseSet.begin(); it1 != courseSet.end(); it1++) {
+        cout << *it1;
+    }
 }
 
 int main () {
-    //TODO read from courses.txt
     ifstream course_txt{"../courses.txt"};
     string line;
     string title;
@@ -60,24 +76,7 @@ int main () {
         courseSet.insert(course);
     }
 
-    multiset<Course>::iterator it1;
-    multiset<Course>::iterator it2;
-    int it_tracker;
-    for(it1 = courseSet.begin(); it1 != courseSet.end(); it1++){
-        it2 = it1;
-        it2++;
-        for (; it2 != courseSet.end(); it2++) {
-            if (it1->conflict(const_cast<Course &>(*it2))) {
-                cout << "CONFLICT:" << endl;
-                cout << *it1;
-                cout << *it2 << endl;
-            }
-        }
-    }
-
-    for(it1 = courseSet.begin(); it1 != courseSet.end(); it1++) {
-        cout << *it1;
-    }
+    printSchedule(courseSet);
 
     return 0;
 }
