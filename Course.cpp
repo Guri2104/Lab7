@@ -45,7 +45,29 @@ void Course::mySwap(Course &course1, Course &course2) {
 
 ostream & operator << (ostream &os, const Course & m)
 {
-    os << m.title << " " << m.day << " " << m.start_time << " " << m.finish_time << endl;
+    char day;
+    switch (m.day) {
+        case Course::MON:
+            day = 'M';
+            break;
+
+        case Course::TUE:
+            day = 'T';
+            break;
+
+        case Course::WED:
+            day = 'W';
+            break;
+
+        case Course::THUR:
+            day = 'R';
+            break;
+
+        case Course::FRI:
+            day = 'F';
+            break;
+    }
+    os << m.title << " " << day << " " << m.start_time << " " << m.finish_time << endl;
     return os;
 }
 
